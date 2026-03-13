@@ -1,0 +1,26 @@
+baseURL = 'https://nisarsy.com/'
+languageCode = 'en-us'
+title = 'nisar'
+
+[params]
+  description = 'Software engineer. Writing about systems, AI, and life.'
+  author = 'Nisar'
+
+[markup]
+  [markup.highlight]
+    style = 'github-dark'
+    lineNos = false
+    noClasses = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[pagination]
+  pagerSize = 20
+
+[outputs]
+  home = ['html', 'rss']
+
+[sitemap]
+  changeFreq = 'weekly'
+  priority = 0.5

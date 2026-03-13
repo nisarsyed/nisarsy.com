@@ -1,0 +1,15 @@
+{{ define "title" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+
+<h2>{{ upper .Title }}</h2>
+<ul class="post-list">
+  {{ range .Pages }}
+  <li>
+    <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+
+{{ end }}

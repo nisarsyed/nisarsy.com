@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ block "title" . }}{{ with .Title }}{{ . }} — {{ end }}{{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{ with .OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
+  {{ end }}
+</head>
+<body>
+
+  <div class="site-header">
+    <h1><a href="{{ "/" | relURL }}">nisar<span class="title-accent">Syed</span></a></h1>
+    <nav class="site-nav">
+      | <a href="{{ "/blog/" | relURL }}">blog</a>
+      <a href="{{ "/projects/" | relURL }}">projects</a>
+      <a href="{{ "/about/" | relURL }}">about</a>
+      <a href="{{ "/index.xml" | relURL }}">rss</a>
+    </nav>
+  </div>
+
+  {{ block "main" . }}{{ end }}
+
+  <div class="site-footer">
+    <p>built with hugo · {{ now.Format "2006" }}</p>
+  </div>
+
+</body>
+</html>

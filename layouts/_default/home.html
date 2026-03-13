@@ -1,0 +1,32 @@
+{{ define "title" }}{{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+
+<div class="stats">
+  <span>last updated: {{ now.Format "2006-01-02" }}</span>
+  <span>posts: {{ len (where .Site.RegularPages "Section" "blog") }}</span>
+</div>
+
+<p>{{ .Site.Params.description }}</p>
+
+<h2>POSTS</h2>
+<ul class="post-list">
+  {{ range first 10 (where .Site.RegularPages "Section" "blog") }}
+  <li>
+    <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+
+{{ $blogPages := where .Site.RegularPages "Section" "blog" }}
+{{ if gt (len $blogPages) 10 }}
+<p style="margin-top: 8px;"><a href="{{ "/blog/" | relURL }}">all posts →</a></p>
+{{ end }}
+
+<h2>PROJECTS</h2>
+{{ with .Site.GetPage "/projects" }}
+  {{ .Content }}
+{{ end }}
+
+{{ end }}

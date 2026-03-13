@@ -1,0 +1,11 @@
+<div class="video-container">
+  <video {{ with .Get "autoplay" }}autoplay{{ end }} {{ with .Get "loop" }}loop{{ end }} {{ with .Get "muted" }}muted{{ end }} controls playsinline>
+    {{ $src := .Get "src" }}
+    {{ with $.Page.Resources.GetMatch $src }}
+    <source src="{{ .RelPermalink }}" type="{{ .MediaType }}">
+    {{ else }}
+    <source src="{{ $src }}">
+    {{ end }}
+  </video>
+  {{ with .Get "caption" }}<div class="caption">{{ . }}</div>{{ end }}
+</div>

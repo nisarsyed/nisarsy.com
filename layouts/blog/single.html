@@ -1,0 +1,23 @@
+{{ define "title" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+
+<a href="{{ "/blog/" | relURL }}" class="back-link">&lt; back to blog</a>
+
+<div style="font-size: 24px; font-weight: bold;">{{ .Title }}</div>
+<div class="article-meta">
+  {{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min{{ with .Params.tags }} · tags: {{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ "/tags/" | relURL }}{{ $t | urlize }}/">{{ $t }}</a>{{ end }}{{ end }}
+</div>
+
+<div class="article-body">
+  {{ .Content }}
+</div>
+
+
+<div class="article-nav">
+  {{ with .PrevInSection }}<a href="{{ .Permalink }}">&lt; {{ .Title }}</a>{{ end }}
+  <span></span>
+  {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }} &gt;</a>{{ end }}
+</div>
+
+{{ end }}
