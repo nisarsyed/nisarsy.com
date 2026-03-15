@@ -4,12 +4,12 @@
 
 <div class="stats">
   <span>last updated: {{ now.Format "2006-01-02" }}</span>
-  <span>posts: {{ len (where .Site.RegularPages "Section" "blog") }}</span>
+  <span>{{ len (where .Site.RegularPages "Section" "blog") }} posts</span>
 </div>
 
-<p>{{ .Site.Params.description }}</p>
+<p class="site-description">{{ .Site.Params.description }}</p>
 
-<h2>POSTS</h2>
+<h2>Posts</h2>
 <ul class="post-list">
   {{ range first 10 (where .Site.RegularPages "Section" "blog") }}
   <li>
@@ -21,10 +21,10 @@
 
 {{ $blogPages := where .Site.RegularPages "Section" "blog" }}
 {{ if gt (len $blogPages) 10 }}
-<p style="margin-top: 8px;"><a href="{{ "/blog/" | relURL }}">all posts →</a></p>
+<a href="{{ "/blog/" | relURL }}" class="view-all">all posts &rarr;</a>
 {{ end }}
 
-<h2>PROJECTS</h2>
+<h2>Projects</h2>
 {{ with .Site.GetPage "/projects" }}
   {{ .Content }}
 {{ end }}

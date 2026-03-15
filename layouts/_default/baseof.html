@@ -7,29 +7,53 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
   {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
   {{ with .OutputFormats.Get "rss" }}
     <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
   {{ end }}
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
 </head>
 <body>
 
-  <div class="site-header">
+  <header class="site-header">
     <h1><a href="{{ "/" | relURL }}">nisar<span class="title-accent">Syed</span></a></h1>
     <nav class="site-nav">
-      | <a href="{{ "/blog/" | relURL }}">blog</a>
+      <a href="{{ "/blog/" | relURL }}">blog</a>
       <a href="{{ "/projects/" | relURL }}">projects</a>
       <a href="{{ "/about/" | relURL }}">about</a>
       <a href="{{ "/index.xml" | relURL }}">rss</a>
+      <button class="theme-toggle" aria-label="Toggle theme">light</button>
     </nav>
-  </div>
+  </header>
 
-  {{ block "main" . }}{{ end }}
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
 
-  <div class="site-footer">
-    <p>built with hugo · {{ now.Format "2006" }}</p>
-  </div>
+  <footer class="site-footer">
+    <span>&copy; {{ now.Format "2006" }} Nisar</span>
+    <span class="colophon">Made with Hugo</span>
+  </footer>
 
+  <script>
+    (function(){
+      var btn=document.querySelector('.theme-toggle');
+      var html=document.documentElement;
+      function update(){var t=html.getAttribute('data-theme');btn.textContent=t==='light'?'dark':'light'}
+      update();
+      btn.addEventListener('click',function(){
+        var next=html.getAttribute('data-theme')==='light'?null:'light';
+        if(next){html.setAttribute('data-theme',next);localStorage.setItem('theme',next)}
+        else{html.removeAttribute('data-theme');localStorage.removeItem('theme')}
+        update();
+      });
+    })();
+  </script>
 </body>
 </html>

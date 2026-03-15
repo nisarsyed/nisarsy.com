@@ -4,13 +4,11 @@ title = 'nisar'
 
 [params]
   description = 'Software engineer. Writing about systems, AI, and life.'
-  author = 'Nisar'
 
 [markup]
   [markup.highlight]
-    style = 'github-dark'
     lineNos = false
-    noClasses = true
+    noClasses = false
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true

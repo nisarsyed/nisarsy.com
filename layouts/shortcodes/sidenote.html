@@ -1,0 +1,1 @@
+{{- $n := add .Ordinal 1 -}}{{- $id := printf "sn-%s-%d" (.Page.File.UniqueID) $n -}}<label for="{{ $id }}" class="sidenote-number">{{ $n }}</label><input type="checkbox" id="{{ $id }}" class="sidenote-toggle"><span class="sidenote"><span class="sidenote-number">{{ $n }}.</span> {{ .Inner | markdownify }}</span>
