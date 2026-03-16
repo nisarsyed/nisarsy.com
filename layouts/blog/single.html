@@ -17,6 +17,13 @@
   {{ end }}
 </div>
 
+{{ if and .Params.toc .TableOfContents }}
+<details class="toc" open>
+  <summary class="toc-heading">Table of Contents</summary>
+  {{ .TableOfContents }}
+</details>
+{{ end }}
+
 <div class="article-body">
   {{ .Content }}
 </div>

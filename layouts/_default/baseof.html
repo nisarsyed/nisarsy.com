@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ block "title" . }}{{ with .Title }}{{ . }} — {{ end }}{{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ partial "opengraph.html" . }}
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,6 +54,63 @@
         else{html.removeAttribute('data-theme');localStorage.removeItem('theme')}
         update();
       });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      document.querySelectorAll('.highlight').forEach(function(block){
+        var btn=document.createElement('button');
+        btn.className='copy-btn';
+        btn.textContent='Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        btn.addEventListener('click',function(){
+          var code=block.querySelector('code');
+          if(!code)return;
+          navigator.clipboard.writeText(code.textContent).then(function(){
+            btn.textContent='Copied!';
+            btn.setAttribute('data-copied','true');
+            btn.setAttribute('aria-label','Copied');
+            setTimeout(function(){
+              btn.textContent='Copy';
+              btn.removeAttribute('data-copied');
+              btn.setAttribute('aria-label','Copy code to clipboard');
+            },1500);
+          });
+        });
+        block.appendChild(btn);
+      });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      var toc=document.querySelector('.toc #TableOfContents');
+      if(!toc)return;
+      var links=toc.querySelectorAll('a');
+      var headings=[];
+      links.forEach(function(a){
+        var id=a.getAttribute('href');
+        if(id&&id.startsWith('#')){
+          var el=document.getElementById(id.slice(1));
+          if(el)headings.push({el:el,link:a});
+        }
+      });
+      if(!headings.length)return;
+      var ticking=false;
+      function update(){
+        var current=null;
+        for(var i=0;i<headings.length;i++){
+          if(headings[i].el.getBoundingClientRect().top<=80)current=i;
+        }
+        links.forEach(function(a){a.classList.remove('toc-active')});
+        if(current!==null)headings[current].link.classList.add('toc-active');
+        ticking=false;
+      }
+      window.addEventListener('scroll',function(){
+        if(!ticking){requestAnimationFrame(update);ticking=true;}
+      });
+      update();
     })();
   </script>
 </body>

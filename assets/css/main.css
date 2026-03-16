@@ -206,7 +206,7 @@ body {
   font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.75;
   letter-spacing: 0.01em;
   max-width: var(--measure);
@@ -348,7 +348,7 @@ a:hover {
 /* === HEADINGS === */
 h2 {
   font-family: var(--font-heading);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 400;
   margin: var(--space-xl) 0 12px;
   letter-spacing: -0.01em;
@@ -357,7 +357,7 @@ h2 {
 
 h3 {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   margin: var(--space-lg) 0 var(--space-sm);
   color: var(--text-bright);
@@ -365,7 +365,7 @@ h3 {
 
 h4 {
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
   margin: var(--space-lg) 0 var(--space-sm);
   color: var(--text);
@@ -450,7 +450,7 @@ hr {
 /* === ARTICLE HEADER === */
 .article-title {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 400;
   line-height: 1.3;
   color: var(--text-bright);
@@ -479,6 +479,98 @@ hr {
 .article-meta a:hover {
   color: var(--accent);
   background: none;
+}
+
+/* === TABLE OF CONTENTS === */
+.toc {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  margin-bottom: var(--space-lg);
+}
+
+.toc-heading {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  list-style: none;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.toc-heading::-webkit-details-marker { display: none; }
+
+.toc-heading::after {
+  content: ' [-]';
+  color: var(--accent);
+  letter-spacing: normal;
+}
+
+.toc:not([open]) > .toc-heading::after {
+  content: ' [+]';
+}
+
+.toc-heading:hover { color: var(--accent); }
+
+.toc #TableOfContents {
+  margin-top: var(--space-md);
+  counter-reset: toc-section;
+}
+
+.toc #TableOfContents ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+/* Top-level entries: numbered */
+.toc #TableOfContents > ul > li {
+  counter-increment: toc-section;
+  margin-bottom: 6px;
+}
+
+.toc #TableOfContents > ul > li > a::before {
+  content: counter(toc-section, decimal-leading-zero) '\00a0\00a0';
+  color: var(--accent-dim);
+}
+
+/* Nested entries: em-dash prefix */
+.toc #TableOfContents ul ul {
+  padding-left: calc(3ch + 4px);
+  margin-top: 4px;
+}
+
+.toc #TableOfContents ul ul li {
+  margin-bottom: 4px;
+}
+
+.toc #TableOfContents ul ul a::before {
+  content: '— ';
+  color: var(--border-strong);
+}
+
+.toc #TableOfContents li {
+  line-height: 1.8;
+}
+
+.toc #TableOfContents a {
+  color: var(--text);
+  transition: color 0.15s ease;
+}
+
+.toc #TableOfContents a:hover {
+  color: var(--accent);
+  background: none;
+}
+
+.toc #TableOfContents a.toc-active {
+  color: var(--accent);
+}
+
+.toc #TableOfContents a.toc-active::before {
+  color: var(--accent);
 }
 
 /* === ARTICLE BODY === */
@@ -532,10 +624,25 @@ hr {
   color: inherit;
 }
 
+/* === COPY BUTTON === */
+.highlight { position: relative; }
+.copy-btn {
+  position: absolute; top: 0; right: 0;
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-top: none; border-right: none;
+  color: var(--text-muted); font-family: var(--font-mono);
+  font-size: 11px; padding: 4px 10px; cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  z-index: 1; line-height: 1;
+}
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn[data-copied="true"] { color: var(--accent); }
+.copy-btn:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+
 /* === ARTICLE HEADINGS (h2/h3 inside articles) === */
 .article-body h2 {
   font-family: var(--font-heading);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 400;
   text-transform: none;
   letter-spacing: -0.01em;
@@ -545,7 +652,7 @@ hr {
 
 .article-body h3 {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   margin: var(--space-md) 0 var(--space-sm);
   color: var(--text-bright);
@@ -756,7 +863,7 @@ a.back-link:hover {
 /* === MOBILE === */
 @media (max-width: 600px) {
   body {
-    font-size: 16px;
+    font-size: 15px;
     padding: var(--space-lg) var(--space-md);
   }
 
@@ -770,7 +877,7 @@ a.back-link:hover {
   }
 
   .article-title {
-    font-size: 24px;
+    font-size: 28px;
   }
 
   .post-list li {
