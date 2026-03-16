@@ -1,0 +1,12 @@
+{{ define "title" }}404 — {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<div class="error-page">
+  <span class="error-code">404</span>
+  <p class="error-message">nothing here.</p>
+  <p class="error-path" id="error-path"></p>
+  <a href="{{ "/" | relURL }}" class="back-link">&larr; back home</a>
+</div>
+<script>
+  (function(){ var el=document.getElementById('error-path'); if(el) el.textContent=window.location.pathname; })();
+</script>
+{{ end }}

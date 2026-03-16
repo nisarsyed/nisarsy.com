@@ -5,9 +5,17 @@
 <h2>Posts</h2>
 <ul class="post-list">
   {{ range .Pages }}
+  {{ $page := . }}
   <li>
     <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ with .Params.series }}
+      <span class="post-link">
+        <a href="{{ $page.Permalink }}">{{ . }} — Part {{ $page.Params.series_part }}</a>
+        <span class="post-subtitle">{{ $page.Title }}</span>
+      </span>
+    {{ else }}
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
   </li>
   {{ end }}
 </ul>

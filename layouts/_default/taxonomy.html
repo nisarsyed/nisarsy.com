@@ -2,12 +2,25 @@
 
 {{ define "main" }}
 
+{{ if eq .Data.Singular "series" }}
+<h2>{{ .Data.Term | title }}</h2>
+{{ else }}
 <h2>{{ upper .Title }}</h2>
+{{ end }}
 <ul class="post-list">
   {{ range .Pages }}
   <li>
     <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ if eq $.Data.Singular "series" }}
+      <span class="post-link">
+        <a href="{{ .Permalink }}">Part {{ .Params.series_part }} - {{ .Title }}</a>
+        {{ with .Params.description }}
+          <span class="post-subtitle">{{ . }}</span>
+        {{ end }}
+      </span>
+    {{ else }}
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
   </li>
   {{ end }}
 </ul>

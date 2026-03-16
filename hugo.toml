@@ -17,6 +17,10 @@ title = 'nisar'
     endLevel = 3
     ordered = false
 
+[taxonomies]
+  tag = "tags"
+  series = "series"
+
 [pagination]
   pagerSize = 20
 
