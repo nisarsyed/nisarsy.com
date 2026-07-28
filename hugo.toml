@@ -1,6 +1,7 @@
 baseURL = 'https://nisarsy.com/'
 languageCode = 'en-us'
 title = 'nisarSyed'
+timeZone = 'Asia/Karachi'
 
 [params]
   description = 'Software engineer. Writing about systems, AI, and life.'

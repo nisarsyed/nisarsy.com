@@ -1,0 +1,5 @@
+<figure class="chart{{ with .Get "class" }} {{ . }}{{ end }}" id="{{ .Get "id" }}">
+  {{ with .Get "title" }}<header class="chart-head"><span>{{ . }}</span>{{ with $.Get "meta" }}<span>{{ . }}</span>{{ end }}</header>{{ end }}
+  <div class="chart-canvas"></div>
+  {{ with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
