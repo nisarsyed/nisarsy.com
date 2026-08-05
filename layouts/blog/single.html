@@ -48,14 +48,6 @@
   {{ .Content }}
 </div>
 
-{{ with .Resources.GetMatch "data.json" }}
-<script type="application/json" id="post-data">{{ (. | resources.Minify).Content | safeJS }}</script>
-{{ end }}
-{{ with .Resources.GetMatch "charts.js" }}
-{{ $js := . | resources.Minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" defer></script>
-{{ end }}
-
 {{ with .Params.series }}
   {{ $key := . | lower }}
   {{ $currentPart := $.Params.series_part }}
