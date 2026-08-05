@@ -1,5 +1,5 @@
 ---
-title: "About Nisar Syed"
+title: "About"
 description: "Nisar Syed - software engineer. Python and FastAPI on the back end, TypeScript and Vue on the front."
 ---
 
