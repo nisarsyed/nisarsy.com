@@ -1,11 +1,11 @@
-{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+{{ define "title" }}{{ .Title }} — {{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
 
-{{ if eq .Data.Singular "series" }}
-<h2>{{ .Data.Term | title }}</h2>
+{{ if and (eq .Data.Singular "series") .Data.Term }}
+<h1 class="page-title">{{ .Data.Term | title }}</h1>
 {{ else }}
-<h2>{{ upper .Title }}</h2>
+<h1 class="page-title">{{ upper .Title }}</h1>
 {{ end }}
 <ul class="post-list">
   {{ range .Pages }}

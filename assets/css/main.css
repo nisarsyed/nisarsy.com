@@ -306,18 +306,18 @@ a:hover {
   gap: var(--space-sm);
 }
 
-.site-header h1 {
+.site-brand {
   font-family: var(--font-mono);
   font-size: var(--text-2xl);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.site-header h1 a {
+.site-brand a {
   color: var(--accent);
   text-decoration: none;
 }
-.site-header h1 a:hover {
+.site-brand a:hover {
   background: none;
   color: var(--text-bright);
 }
@@ -328,7 +328,7 @@ a:hover {
   transition: color var(--transition);
 }
 
-.site-header h1 a:hover .title-accent {
+.site-brand a:hover .title-accent {
   color: var(--accent);
 }
 
@@ -384,6 +384,15 @@ a:hover {
 }
 
 /* === HEADINGS === */
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-bright);
+  margin-bottom: var(--space-sm);
+}
+
 h2 {
   font-family: var(--font-heading);
   font-size: var(--text-3xl);
@@ -967,8 +976,12 @@ hr {
     gap: var(--space-md);
   }
 
-  .site-header h1 {
+  .site-brand {
     font-size: var(--text-xl);
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
   }
 
   .article-title {
