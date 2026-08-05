@@ -2,9 +2,17 @@ baseURL = 'https://nisarsy.com/'
 languageCode = 'en-us'
 title = 'nisarSyed'
 timeZone = 'Asia/Karachi'
+enableRobotsTXT = true
 
 [params]
   description = 'Software engineer. Writing about systems, AI, and life.'
+  author = 'Nisar Syed'
+  jobTitle = 'Software engineer'
+
+  [params.social]
+    github = 'https://github.com/nisarsyed'
+    linkedin = 'https://www.linkedin.com/in/nisarsy'
+    x = 'https://x.com/nisar_sy'
 
 [markup]
   [markup.highlight]

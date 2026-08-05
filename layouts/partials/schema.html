@@ -1,0 +1,49 @@
+{{- $sameAs := slice -}}
+{{- range site.Params.social -}}
+  {{- $sameAs = $sameAs | append . -}}
+{{- end -}}
+
+{{- $person := dict
+      "@type" "Person"
+      "name" site.Params.author
+      "url" site.BaseURL
+      "jobTitle" site.Params.jobTitle
+      "sameAs" $sameAs -}}
+
+{{- $schema := false -}}
+
+{{- if .IsHome -}}
+  {{- $schema = dict
+        "@context" "https://schema.org"
+        "@type" "Person"
+        "name" site.Params.author
+        "alternateName" site.Title
+        "url" site.BaseURL
+        "jobTitle" site.Params.jobTitle
+        "description" site.Params.description
+        "sameAs" $sameAs -}}
+
+{{- else if eq .RelPermalink "/about/" -}}
+  {{- $schema = dict
+        "@context" "https://schema.org"
+        "@type" "ProfilePage"
+        "url" .Permalink
+        "mainEntity" $person -}}
+
+{{- else if and .IsPage (eq .Section "blog") -}}
+  {{- $schema = dict
+        "@context" "https://schema.org"
+        "@type" "BlogPosting"
+        "headline" .Title
+        "url" .Permalink
+        "mainEntityOfPage" .Permalink
+        "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+        "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+        "description" (cond (ne .Description "") .Description site.Params.description)
+        "author" $person
+        "publisher" $person -}}
+{{- end -}}
+
+{{- with $schema }}
+<script type="application/ld+json">{{ . | jsonify (dict "indent" "  ") | safeJS }}</script>
+{{- end -}}

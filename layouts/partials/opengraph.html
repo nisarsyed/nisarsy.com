@@ -1,5 +1,6 @@
+{{- $ogTitle := cond .IsHome (printf "%s — %s" site.Params.author site.Params.jobTitle) .Title -}}
 <!-- Open Graph -->
-<meta property="og:title" content="{{ .Title }}">
+<meta property="og:title" content="{{ $ogTitle }}">
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
@@ -24,5 +25,5 @@
 <meta name="twitter:card" content="summary">
 {{ end -}}
 <!-- Twitter -->
-<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:title" content="{{ $ogTitle }}">
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
