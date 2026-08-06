@@ -42,6 +42,9 @@
         "description" (cond (ne .Description "") .Description site.Params.description)
         "author" $person
         "publisher" $person -}}
+  {{- with partialCached "og-image.html" (dict "page" . "title" .Title) .RelPermalink -}}
+    {{- $schema = merge $schema (dict "image" .Permalink) -}}
+  {{- end -}}
 {{- end -}}
 
 {{- with $schema }}

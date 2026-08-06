@@ -1,0 +1,51 @@
+{{- $page := .page -}}
+{{- $text := .title -}}
+
+{{- $img := false -}}
+
+{{- with $page.Params.image -}}
+  {{- with $page.Resources.GetMatch . -}}
+    {{- $img = .Resize "1200x webp q85" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $img -}}
+  {{- $maxChars := 33 -}}
+  {{- $maxLines := 4 -}}
+
+  {{- $lines := slice -}}
+  {{- $cur := "" -}}
+  {{- range split (or $text site.Title) " " -}}
+    {{- $w := . -}}
+    {{- if eq $cur "" -}}
+      {{- $cur = $w -}}
+    {{- else if le (add (strings.RuneCount $cur) (add 1 (strings.RuneCount $w))) $maxChars -}}
+      {{- $cur = printf "%s %s" $cur $w -}}
+    {{- else -}}
+      {{- $lines = $lines | append $cur -}}
+      {{- $cur = $w -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $cur -}}
+    {{- $lines = $lines | append . -}}
+  {{- end -}}
+
+  {{- if gt (len $lines) $maxLines -}}
+    {{- $keep := sub $maxLines 1 -}}
+    {{- $tail := index $lines $keep -}}
+    {{- $lines = (first $keep $lines) | append (printf "%s…" (substr $tail 0 (sub $maxChars 1))) -}}
+  {{- end -}}
+
+  {{- $canvas := resources.Get "og/canvas.png" -}}
+  {{- $font := resources.Get "og/JetBrainsMono-Bold.ttf" -}}
+  {{- $opts := dict
+        "color" "#e2e8ee"
+        "font" $font
+        "linespacing" 16
+        "size" 52
+        "x" 80
+        "y" 200 -}}
+  {{- $img = $canvas.Filter (images.Text (delimit $lines "\n") $opts) -}}
+{{- end -}}
+
+{{- return $img -}}
