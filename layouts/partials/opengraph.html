@@ -1,4 +1,4 @@
-{{- $ogTitle := cond .IsHome (printf "%s — %s" site.Params.author site.Params.jobTitle) .Title -}}
+{{- $ogTitle := cond .IsHome site.Params.author .Title -}}
 {{- $ogImage := partialCached "og-image.html" (dict "page" . "title" $ogTitle) .RelPermalink -}}
 <!-- Open Graph -->
 <meta property="og:title" content="{{ $ogTitle }}">

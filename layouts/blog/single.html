@@ -11,7 +11,7 @@
   {{ with index $.Site.Taxonomies.series $key }}
     {{ $total = len .Pages }}
   {{ end }}
-  <h1 class="article-title">{{ . }} — Part {{ $.Params.series_part }}</h1>
+  <h1 class="article-title">{{ . }} - Part {{ $.Params.series_part }}</h1>
   <p class="article-subtitle">{{ $.Title }}</p>
   <div class="article-meta">
     <span>{{ $.Date.Format "2006-01-02" }}</span>
